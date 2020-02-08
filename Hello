@@ -1,0 +1,63 @@
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def hello_world():
+    return 'Hello World!'
+
+@app.route('/dojo')
+def dojo():
+    return "Dojo!"
+
+@app.route('/say/<name>')
+def hello(name):
+    print(name)
+    return "Hi " + name + "!"
+
+@app.route('/repeat/<int:num>/<phrase>')
+def repeat(num, phrase):
+    return num *  phrase
+
+@app.route('/lists')
+def render_lists( ):
+    students_info = [
+        {'name': 'Michael', 'age': 35},
+        {'name': 'John', 'age': 30},
+        {'name': 'Mark', 'age': 25},
+        {'name': 'KB', 'age': 27}
+    ]
+return render_template("lists.html", random_numbers = [3,1,5], students = students_info)
+
+if __name__=="__main__":
+    app.run(debug=True)
+
+
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello!</h1>
+    <p>we are using flask</p>
+    <p>{{phrase}}</p>
+    {% for character in characters: %}
+        <p>{{character}}</p>
+    {% endfor %}  
+</body>
+</html>
+
+lists.html
+<h1>Random Numbers</h1>
+{% for number in random_numbers %}
+    <p>{{number}}</p>
+{% endfor %}
+<h1>Students</h1>
+{% for student in students %}
+    <p>{{ student['name'] }} - {{student['age'] }}</p>
+{% endfor %}
