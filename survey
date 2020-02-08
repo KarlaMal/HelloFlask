@@ -1,0 +1,112 @@
+survey.py
+
+from flask import Flask, render_template, request
+app = Flask(__name__)
+
+@app.route('/')
+def survey():
+    return render_template('survey.html') #just showing the form
+
+@app.route('/result', methods=['POST']) #handeling the form
+def process_survey():
+    return render_template('process.html', name=request.form['name'], dlocal=request.form['Dojo'], language=request.form['Favorite'], comment=request.form['comment'])  
+
+if __name__=="__main__":
+    app.run(debug=True)
+
+
+
+
+# def create_user():
+#     print("Got Post Info")
+#     print(request.form)
+#     name_from_form = request.form['name']
+#     email_from_form = request.form['email']
+#     return render_template("show.html", name_on_template=name_from_form, email_on_template=email_from_form)
+
+templates:
+process.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+   .container{
+            width:450px;
+            text-align: center;
+            border: 1px white solid;
+            height: 264px;
+            border-radius: 3px;
+            background-color:cornflowerblue;
+            color: white;
+            padding-top: 20px;
+        }
+        p{
+            margin: 23px;
+        }
+        h2{
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <h2>Submitted Information</h2>
+        <p>Name: {{name}}</p>
+        <p>Location: {{dlocal}}</p>
+        <p>Language: {{language}}</p>
+        <p>Comment: {{comment}}</p>
+        <button type="button">Go Back</button>
+    </div>
+</body>
+</html>
+
+survey.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container{
+            width:450px;
+            text-align: center;
+            border: 1px white solid;
+            height: 400px;
+            border-radius: 3px;
+            background-color:cornflowerblue;
+            color: white;
+        }
+        p{
+            margin: 23px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action='/result' method="post">
+            <p>Your Name: <input type='text' name='name'> </p>
+            <p>Dojo Location: <select name='Dojo'>
+                <option value='San Jose'>San Jose</option>
+                <option value='Dallas'>Dallas</option>
+                <option value='Seattle'>Seattle</option>
+            </select></p>
+            <p>Favorite Language: <select name='Favorite'>
+                <option value='Python'>Python</option>
+                <option value='C++'>C++</option>
+                <option value='Ruby'>Ruby</option>
+            </select></p>
+            <p>Comment (optional):</p>
+            <p><textarea name='comment' rows="6" style="width: 80%;"></textarea></p>
+            <p><input type='submit' value='Button'></p>
+        </form>
+    </div>
+</body>
+</html>
+
