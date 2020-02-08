@@ -1,0 +1,62 @@
+server.py
+from flask import Flask, render_template, session, redirect, request
+app = Flask(__name__)
+app.secret_key = "fdfsd" #has to equal a string, this is a password to get into session, can have anything
+
+
+@app.route('/')
+def root():
+    if 'num' in session:
+        session['num']+= 1
+    else:
+        session["num"] = 1
+    return render_template("counter.html")
+
+@app.route('/double')
+def double():
+    session['num']+= 1
+    return redirect('/') 
+
+@app.route('/choice', methods=['POST'])
+def choose():
+    session['num'] = session['num']-1 + int(request.form["choice"])
+    return redirect('/') 
+
+@app.route('/destroy_session')
+def destroy():
+    session.clear()
+    return redirect('/') #takes the person nacl tp where we want them to go, either back to the screen before or somewhere else 
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+    # We use session to see who is using the application at that moment. it's for security someone else won't be able to delete or change your account 
+
+
+    # keep the same name="building" only value="farm" will be different, use if statements 
+    
+    counter.html
+    
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1> I have been to this page {{session['num']}} time(s)</h1>
+    <form action="/destroy_session">
+        <input type="submit" value="Clear Session" />
+    </form>
+    <form action="/double">
+        <input type="submit" value="Add Two"/>
+    </form>
+    <form action="/choice" method="post">
+        <label for="choice">Choose a number:</label>
+        <input type="text" name="choice">
+        <input type="submit" value="Go"/>
+    </form>
+</body>
+</html>
