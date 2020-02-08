@@ -1,0 +1,58 @@
+html_table.py
+
+from flask import Flask, render_template
+app = Flask(__name__)
+
+@app.route('/users')
+def people_list():
+    users_info = [
+        {'first_name': 'Michael', 'last_name': 'Choi'},
+        {'first_name': 'John', 'last_name': 'Supsupin'},
+        {'first_name': 'Mark', 'last_name': 'Guillen'},
+        {'first_name': 'KB', 'last_name': 'Tonel'}
+    ]
+    return render_template("html_table.html", users= users_info)
+
+if __name__=="__main__":
+    app.run(debug=True)
+    
+    templates
+    html_table.html
+    
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            border: 1px black solid;
+            width: 500px;
+        }
+        .user table{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <table class="user table">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Full Name</th>
+            </tr>
+            {% for user in users %}
+                <tr>
+                    <td>{{user["first_name"]}}</td>
+                    <td>{{user["last_name"]}}</td>
+                    <td>{{user["first_name"]}} {{user["last_name"]}}</td>
+                </tr>
+            {% endfor %}
+
+        </table=>
+    </div>
+</body>
+</html>
