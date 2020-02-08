@@ -1,0 +1,28 @@
+style.py
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        h1{
+            color: cornflowerblue;
+        }
+    </style>
+</head>
+<body>
+    <h1>There's a secret!</h1>
+    <form action="/tell_secret" method="POST">
+        Secret: <input type="text" name="secret"/>
+        <input type="submit" value="Tell Me!"/>
+    </form>
+</body>
+</html>
+
+style.css
+
+p{
+    display: inline-block;
+}
