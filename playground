@@ -1,0 +1,47 @@
+playground.py 
+from flask import Flask, render_template
+app = Flask(__name__)
+
+@app.route('/play')
+def playground():
+    return render_template('playground.html', times = 3, backcolor="blue")
+
+@app.route('/play/<int:num>')
+def default(num):
+    return render_template('playground.html', times=num, backcolor="blue")
+
+@app.route('/play/<int:num>/<color>')
+def boxcol(num, color):
+    return render_template('playground.html', times=num, backcolor=color)
+
+if __name__=="__main__": 
+    app.run(debug=True) 
+    
+    templates
+    plyground.html
+    
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .default{
+            width: 100px;
+            height: 100px;
+            background-color: {{backcolor}};
+            display: inline-block;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% for x in range (times) %}
+            <div class="default"></div>
+        {% endfor %}
+    </div>
+</body>
+</html>
